@@ -1,0 +1,73 @@
+// Just a dialogue box that appears in the form of window during game
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class ESC extends JPanel implements ActionListener{
+    JButton ExitRoundYes;
+    JButton ExitRoundNo;
+    JFrame frameESC;
+    JFrame frameReceiver;
+    public ESC(JFrame frame2){
+
+        frameReceiver = frame2;
+        //Just change these 
+        frameESC = new JFrame("Returning?");// Change Title of the dilog boss 
+        ExitRoundYes = new JButton("Yes"); //Change Yes button text from here
+        ExitRoundNo = new JButton("No");//Change No button text from here 
+        JLabel returntoMenu = new JLabel("Do you want to return to Main Menu?"); // Change Dialog box text from here 
+        ImageIcon image = new ImageIcon("images/tetris.png"); // You can also change the Window Icon image form here 
+        Color white = new Color(255, 255, 255); // color of button you can add the any color code here according to you
+
+
+        //Dont need to change this 
+        frameESC.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frameESC.setSize(500, 350);
+        frameESC.setLocationRelativeTo(null);
+        frameESC.setResizable(false);
+        frameESC.setIconImage(image.getImage());
+        frameESC.getContentPane().setBackground(Color.BLACK);
+        //Lable
+        returntoMenu.setBounds(90, 25, 300, 150);
+        returntoMenu.setFont(new Font("Modular", Font.BOLD, 17));
+        returntoMenu.setForeground(new Color(255, 255, 255));
+        //Exit Button
+        ExitRoundYes.setBounds(205, 150, 75, 25);
+        ExitRoundNo.setBounds(205, 200, 75, 25);
+        ExitRoundYes.setFocusable(false);
+        ExitRoundNo.setFocusable(false);
+        //buttons coloring
+        ExitRoundYes.setBackground(white);
+        ExitRoundNo.setBackground(white);
+        
+        //Adding the button
+        frameESC.add(ExitRoundYes);
+        frameESC.add(ExitRoundNo);
+        frameESC.add(returntoMenu);
+        //action Listener
+        ExitRoundYes.addActionListener(this);
+        ExitRoundNo.addActionListener(this);
+
+        frameESC.setLayout(null);
+        frameESC.setVisible(true); 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == ExitRoundYes){
+            frameESC.dispose();
+            frameReceiver.dispose();
+            new Window1();// Change this if you want to perform dialogbox operation on the window you like
+        }
+        else if(e.getSource() == ExitRoundNo){
+             frameESC.dispose();
+        }
+    }
+}
