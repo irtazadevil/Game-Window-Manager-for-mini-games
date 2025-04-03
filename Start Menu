@@ -1,0 +1,83 @@
+//Thats the starting 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+public class Window1 extends JPanel implements ActionListener{
+    private static JButton buttonStart, buttonExit;
+    static JFrame frame;
+    static Image backImage;
+   public Window1(){
+        //Change these 
+        //frame, buttons creation
+        frame = new JFrame("Main Menu");// Change the Window 1 title from here 
+        buttonStart = new JButton("Start"); // Change Start button text from here
+        buttonExit = new JButton("Exit");//Change exit button text from here
+        ImageIcon image = new ImageIcon("images/tetris.png"); //Change ImageIcon image from here 
+        backImage = new ImageIcon("images/Back12.png").getImage();//From here you can change the background image 
+        System.out.println("First Window Images Loaded successfully");
+
+        //Color objects
+        Color white = new Color(255, 255, 255);// You can give color code here in order to change color of buttons
+
+        //Dont need to change these 
+        frame.setSize(1000, 700);//dimesnions (1000,700)
+        frame.setResizable(false);
+        frame.setIconImage(image.getImage());
+        //Change this
+        frame.getContentPane().setBackground(Color.BLACK);// Set background of window according to you
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(null);
+
+        //layout
+        setLayout(null);
+        frame.setContentPane(this);
+        //button start
+        buttonStart.setFocusable(false);
+        buttonStart.setBackground(white);
+        buttonStart.setBounds(445, 470, 75, 35);
+        frame.add(buttonStart);
+        //Change this
+        buttonStart.setFont(new Font("Modular",Font.BOLD, 17));//You can change button start font color, text type and size according to u from here
+        buttonStart.addActionListener(this);
+        //button exit
+        buttonExit.setFocusable(false);
+        buttonExit.setBounds(445, 520, 75, 35);
+        buttonExit.setBackground(white);
+        //Change this 
+        buttonExit.setFont(new Font("Modular",Font.BOLD, 17));//You can change button exit font color, text type and size according to u from here
+        frame.add(buttonExit); 
+        buttonExit.addActionListener(this);
+
+        frame.setVisible(true);
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(backImage, 0, 0, getWidth(), getHeight(), this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == buttonStart){
+                frame.dispose();
+                //Integration part is here
+                new barClass();//Change the object creation if you want to integrate your own window that you want to open create that class object here 
+        }else if(e.getSource() == buttonExit){
+            try{
+                Thread.sleep(1000);
+                frame.dispose();
+            } catch (InterruptedException e1) {
+                System.out.println("Error in closing!");
+            }
+        }
+    }
+}
+
