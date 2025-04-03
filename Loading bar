@@ -1,0 +1,79 @@
+// This one os the progress bar
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+
+public class barClass extends JPanel{
+    int value = 0;
+    JFrame framebar;
+    JProgressBar bar;
+    public barClass(){
+        //Change these
+        framebar = new JFrame("Loading!");//Change title text from here
+        bar = new JProgressBar();
+        JLabel Loading = new JLabel("Loading...."); // Change Loading text lable 
+        Image image = new ImageIcon("images/tetris.png").getImage();// Change Image Icon from here
+
+        //Dont change these
+        framebar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        framebar.setSize(1000, 700);
+        framebar.setLocationRelativeTo(null);
+        framebar.setResizable(false);
+        framebar.setIconImage(image);
+        framebar.getContentPane().setBackground(Color.BLACK);
+        framebar.setFont(new Font("Arial",Font.BOLD, 10));
+        framebar.setLayout(null);
+        //lable
+        Loading.setBounds(450, 260, 100, 50);
+        Loading.setFont(new Font("Modular", Font.BOLD, 20));
+
+        //bar 
+        bar.setBounds(70, 325, 850, 20);
+        bar.setStringPainted(true);
+        //Change these
+        bar.setBackground(Color.BLACK);//Change Bars Background color
+        bar.setForeground(Color.BLUE);// Change the bars loading color animation from here 
+
+        //Adding components to the framebar
+        framebar.add(Loading);
+        framebar.add(bar);
+
+        //calling progress methods
+        startProgress();
+        framebar.setVisible(true);
+    }
+    public void startProgress() {
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() {
+                for (int i = 0; i <= 100; i+=3) {
+                    try {
+                        Thread.sleep(50);  // Simulate loading delay
+                    } catch (InterruptedException e) {
+                        System.out.println("Error in Loading the Game!");
+                    }
+                    final int progress = i;
+                    SwingUtilities.invokeLater(() -> bar.setValue(progress)); // Update UI safely
+                }
+                return null;
+            }
+
+           @Override
+            protected void done() {
+                framebar.dispose(); // Close the progress bar window when done
+                // Start the next window here if needed
+                System.out.println("Loading Complete! Transition to next window.");
+                new  Window2();
+            } 
+        };
+        worker.execute();
+ }
+}
