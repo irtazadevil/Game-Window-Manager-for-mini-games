@@ -1,0 +1,15 @@
+// This file is just the gate to Enter into the application if you want to copy all just create this (Window 1 object) by new Window1()
+
+// I have also added these keywords like 
+
+// 1. Change this 
+// 2. Change these
+// 3. Just Change these
+
+// to tell you what to change and what not to 
+
+public class Main {
+    public static void main(String[] args) {
+    new Window1();
+    }
+}
